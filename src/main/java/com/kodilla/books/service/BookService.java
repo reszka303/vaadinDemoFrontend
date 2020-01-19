@@ -5,6 +5,7 @@ import com.kodilla.books.domain.Book;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BookService {
 
@@ -15,8 +16,8 @@ public class BookService {
         this.books = exampleData();
     }
 
-    public static BookService getInstance() {
-        if (bookService == null) {
+    public static BookService getInstance(){
+        if(bookService == null){
             bookService = new BookService();
         }
         return bookService;
@@ -26,11 +27,11 @@ public class BookService {
         return new HashSet<>(books);
     }
 
-    public void addBook(Book book) {
+    public void addBook (Book book) {
         this.books.add(book);
     }
 
-    private Set<Book> exampleData() {
+    private Set<Book> exampleData(){
         Set<Book> books = new HashSet<>();
         books.add(new Book("Cracking the Coding Interview: 189 Programming Questions and Solutions", "Gayle Laakmann McDowell", "2015", BookType.IT));
         books.add(new Book("Introduction to Algorithms", "The MIT Press", "2009", BookType.IT));
@@ -41,4 +42,19 @@ public class BookService {
         books.add(new Book("Watch Us Rise", "Renée Watson,  Ellen Hagan", "2019", BookType.POETRY));
         return books;
     }
+
+    public Set<Book> findByTitle(String title){
+        return books.stream()
+                .filter(book -> book.getTitle().contains(title))
+                .collect(Collectors.toSet());
+    }
+
+    public void save(Book book) {
+        this.books.add(book);
+    }
+
+    public void delete(Book book) {
+        this.books.remove(book);
+    }
+
 }

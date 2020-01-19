@@ -2,8 +2,6 @@ package com.kodilla.books.domain;
 
 import com.kodilla.books.BookType;
 
-import java.util.Objects;
-
 public class Book {
 
     private String title;
@@ -40,22 +38,23 @@ public class Book {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Book)) return false;
 
         Book book = (Book) o;
 
-        if (!publicationYear.equals(book.publicationYear)) return false;
-        if (!Objects.equals(title, book.title)) return false;
-        if (!Objects.equals(author, book.author)) return false;
-        return Objects.equals(type, book.type);
+        if (getTitle() != null ? !getTitle().equals(book.getTitle()) : book.getTitle() != null) return false;
+        if (getAuthor() != null ? !getAuthor().equals(book.getAuthor()) : book.getAuthor() != null) return false;
+        if (getPublicationYear() != null ? !getPublicationYear().equals(book.getPublicationYear()) : book.getPublicationYear() != null)
+            return false;
+        return getType() != null ? getType().equals(book.getType()) : book.getType() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (publicationYear != null ? publicationYear.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
+        int result = getTitle() != null ? getTitle().hashCode() : 0;
+        result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
+        result = 31 * result + (getPublicationYear() != null ? getPublicationYear().hashCode() : 0);
+        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
         return result;
     }
 
